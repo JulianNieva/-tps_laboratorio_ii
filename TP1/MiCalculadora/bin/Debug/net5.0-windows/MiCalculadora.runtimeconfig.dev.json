@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\julya\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\julya\\.nuget\\packages"
+    ]
+  }
+}
