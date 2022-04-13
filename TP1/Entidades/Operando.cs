@@ -71,6 +71,7 @@ namespace Entidades
         {
             string retorno = "Valor Invalido";
 
+            //Verifico que sea binario
             if(this.EsBinario(binario))
             {
                 retorno = Convert.ToInt32(binario, 2).ToString();
