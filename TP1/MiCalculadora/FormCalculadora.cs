@@ -18,28 +18,51 @@ namespace MiCalculadora
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Carga del formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormCalculadora_Load(object sender, EventArgs e)
         {
             this.Limpiar();
         }
 
+        /// <summary>
+        /// Se ejecuta cuando el formulario se desea cerrar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormCalculadora_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Estas seguro que desea salir?", "¡Atencion!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show("¿Está seguro que desea salir?", "¡Atencion!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 e.Cancel = true;
             }
         }
-
+        /// <summary>
+        /// Se ejecuta el metodo limpiar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             this.Limpiar();
         }
 
+        /// <summary>
+        /// Se inicia el proceso de cierre del form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        
+        /// <summary>
+        /// Borra los datos de los Textbox, Combobox y Label
+        /// </summary>
         private void Limpiar()
         {
             this.txtNumero1.Clear();
@@ -48,6 +71,13 @@ namespace MiCalculadora
             this.lblResultado.Text = "0";
         }
 
+        /// <summary>
+        /// Realiza la operacion entre dos numeros
+        /// </summary>
+        /// <param name="numero1"> Primer operando</param>
+        /// <param name="numero2"> Segundo numero</param>
+        /// <param name="operador"> Operacion a realizar</param>
+        /// <returns>Retorna el resultado de la operacion</returns>
         private static double Operar(string numero1,string numero2,string operador)
         {
             double resultado = 0;
@@ -62,6 +92,11 @@ namespace MiCalculadora
             return resultado;
         }
 
+        /// <summary>
+        /// Se inicia el proceso de realizar el calculo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOperar_Click(object sender, EventArgs e)
         {
             double resultado = 0;
@@ -97,6 +132,11 @@ namespace MiCalculadora
 
         }
 
+        /// <summary>
+        /// Se convierte el resultado del label a binario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnConvertirABinario_Click(object sender, EventArgs e)
         {
             Operando numeroAuxiliar = new Operando();
@@ -112,6 +152,11 @@ namespace MiCalculadora
             }
         }
 
+        /// <summary>
+        /// Se convierte el resultado del label a decimal, si es binario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnConvertirADecimal_Click(object sender, EventArgs e)
         {
             Operando numeroAuxiliar = new Operando();
