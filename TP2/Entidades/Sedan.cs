@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Entidades
 {
-    class Sedan : Vehiculo
+    public class Sedan : Vehiculo
     {
         public enum ETipo { CuatroPuertas, CincoPuertas }
         ETipo tipo;
