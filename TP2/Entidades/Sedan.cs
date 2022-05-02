@@ -11,7 +11,7 @@ namespace Entidades
     public class Sedan : Vehiculo
     {
         public enum ETipo { CuatroPuertas, CincoPuertas }
-        ETipo tipo;
+        private ETipo tipo;
 
         /// <summary>
         /// Por defecto, TIPO será CuatroPuertas
@@ -23,6 +23,13 @@ namespace Entidades
         {
         }
 
+        /// <summary>
+        /// Constructor al recibir 4 parametros
+        /// </summary>
+        /// <param name="marca">Marca a asignar</param>
+        /// <param name="chasis">Chasis a asignar</param>
+        /// <param name="color">Color a asignar</param>
+        /// <param name="tipo">Tipo a asignar</param>
         public Sedan(EMarca marca, string chasis, ConsoleColor color, ETipo tipo)
             : base(chasis, marca, color)
         {
@@ -40,6 +47,10 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Muestro los datos del Sedan
+        /// </summary>
+        /// <returns>Retorno los datos del Sedan</returns>
         public override sealed string Mostrar()
         {
             StringBuilder sb = new StringBuilder();

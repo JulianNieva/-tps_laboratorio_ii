@@ -33,7 +33,7 @@ namespace Entidades
         /// <summary>
         /// Muestro el estacionamiento y TODOS los vehículos
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Devuelve el estacionamientos con todos los vehiculos</returns>
         public override string ToString()
         {
             return Listar(this, ETipo.Todos);
@@ -48,7 +48,7 @@ namespace Entidades
         /// </summary>
         /// <param name="taller">Elemento a exponer</param>
         /// <param name="ETipo">Tipos de ítems de la lista a mostrar</param>
-        /// <returns></returns>
+        /// <returns>Retorna el listado de autos cargados en el taller</returns>
         public static string Listar(Taller t, ETipo tipo)
         {
             StringBuilder sb = new StringBuilder();
@@ -95,11 +95,12 @@ namespace Entidades
         /// </summary>
         /// <param name="taller">Objeto donde se agregará el elemento</param>
         /// <param name="vehiculo">Objeto a agregar</param>
-        /// <returns></returns>
+        /// <returns>Retorna el taller</returns>
         public static Taller operator +(Taller t, Vehiculo vehiculo)
         {
             bool estaCargado = false;
 
+            //Se verifica si hay espacio
             if(t.espacioDisponible > t.vehiculos.Count)
             {
                 foreach (Vehiculo v in t.vehiculos)
@@ -112,6 +113,7 @@ namespace Entidades
 
                 }
 
+                //Si no esta cargado se lo agrega a la lista
                 if (!estaCargado)
                 {
                     t.vehiculos.Add(vehiculo);
@@ -125,7 +127,7 @@ namespace Entidades
         /// </summary>
         /// <param name="taller">Objeto donde se quitará el elemento</param>
         /// <param name="vehiculo">Objeto a quitar</param>
-        /// <returns></returns>
+        /// <returns>Retorna el taller</returns>
         public static Taller operator -(Taller t, Vehiculo vehiculo)
         {
             foreach (Vehiculo v in t.vehiculos)

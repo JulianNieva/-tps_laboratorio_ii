@@ -11,6 +11,13 @@ namespace Entidades
     /// </summary>
     public abstract class Vehiculo
     {
+        #region Atributos
+        private EMarca marca;
+        private string chasis;
+        private ConsoleColor color;
+        #endregion
+
+        #region Enumerados
         public enum EMarca
         {
             Chevrolet, Ford, Renault, Toyota, BMW, Honda, HarleyDavidson
@@ -19,32 +26,46 @@ namespace Entidades
         {
             Chico, Mediano, Grande
         }
+        #endregion Enumerados
 
-        EMarca marca;
-        string chasis;
-        ConsoleColor color;
-
-        protected Vehiculo(string chasis, EMarca marca, ConsoleColor color)
+        #region Constructores
+        /// <summary>
+        /// Constructor de 3 parametros
+        /// </summary>
+        /// <param name="chasis"> Chasis a asignar</param>
+        /// <param name="marca">Marca a asignar</param>
+        /// <param name="color">Color a asignar</param>
+        public Vehiculo(string chasis, EMarca marca, ConsoleColor color)
         {
             this.marca = marca;
             this.chasis = chasis;
             this.color = color;
         }
+        #endregion
 
+        #region Propiedades
         /// <summary>
         /// ReadOnly: Retornará el tamaño
         /// </summary>
         protected abstract ETamanio Tamanio { get;}
+        #endregion
 
+        #region Metodos
         /// <summary>
         /// Publica todos los datos del Vehiculo.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Devuelve los datos del vehiculo</returns>
         public virtual string Mostrar()
         {
             return (string)this;
         }
+        #endregion
 
+        #region Sobrecargas
+        /// <summary>
+        /// Sobrecarga explicita string
+        /// </summary>
+        /// <param name="p">Vehiculo a mostrar</param>
         public static explicit operator string(Vehiculo p)
         {
             StringBuilder sb = new StringBuilder();
@@ -62,9 +83,9 @@ namespace Entidades
         /// <summary>
         /// Dos vehiculos son iguales si comparten el mismo chasis
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
+        /// <param name="v1">Primer vehiculo</param>
+        /// <param name="v2">Segundo vehiculo</param>
+        /// <returns>Retorna true si coinciden las chasis, false caso contrario</returns>
         public static bool operator ==(Vehiculo v1, Vehiculo v2)
         {
             return (v1.chasis == v2.chasis);
@@ -72,12 +93,13 @@ namespace Entidades
         /// <summary>
         /// Dos vehiculos son distintos si su chasis es distinto
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
+        /// <param name="v1">Primer vehiculo</param>
+        /// <param name="v2">Segundo vehiculo</param>
+        /// <returns>Retorna true si son distintas las chasis, false caso contrario</returns>
         public static bool operator !=(Vehiculo v1, Vehiculo v2)
         {
             return !(v1==v2);
         }
+        #endregion
     }
 }
