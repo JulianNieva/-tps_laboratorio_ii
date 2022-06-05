@@ -15,9 +15,21 @@ namespace Formularios
 {
     public partial class FormPrincipal : Form
     {
+        public static Internet internet;
+        public static LineaTelefonica telefono;
+        public static Television television;
+
         RedSignal redSignal;
         Cliente cliente;
+        Reclamo reclamo;
         bool opcionSeleccionada;
+
+        static FormPrincipal()
+        {
+            internet = new Internet(350);
+            television = new Television(200);
+            telefono = new LineaTelefonica(150);
+        }
 
         public FormPrincipal()
         {
@@ -126,7 +138,14 @@ namespace Formularios
             {
                 if(lstListado.SelectedItem is not null)
                 {
-                    EliminarCliente();
+                    if(lstListado.SelectedItem is Cliente)
+                    {
+                        EliminarCliente();
+                    }
+                    else
+                    {
+                        EliminarReclamo();
+                    }
                 }
                 else
                 {
@@ -140,14 +159,15 @@ namespace Formularios
 
         }
 
-        private void MostrarError(Exception exc)
+        private void EliminarReclamo()
         {
-            StringBuilder sb = new StringBuilder();
+            Reclamo reclamo = this.lstListado.SelectedItem as Reclamo;
 
-            sb.AppendLine("ERROR");
-            sb.AppendLine($"{exc.Message}");
-
-            MessageBox.Show(sb.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (MessageBox.Show($"{Reclamo.MostrarReclamo(reclamo)}","¿Se respondio este reclamo?",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                redSignal.ListaDeReclamos.Remove(reclamo);
+                RefrescarLista(false);
+            }
         }
 
         private void EliminarCliente()
@@ -157,6 +177,14 @@ namespace Formularios
             if (MessageBox.Show($"{Cliente.MostrarCliente(cliente)}", "¿Estas seguro que desea eliminar este cliente?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 redSignal.ListaDeClientes.Remove(cliente);
+                /*foreach (Reclamo item in redSignal.ListaDeReclamos)
+                {
+                    if(cliente == item.Cliente)
+                    {
+                        redSignal.ListaDeReclamos.Remove(item);
+                    }
+                }*/
+
                 RefrescarLista(true);
             }
             
@@ -170,9 +198,21 @@ namespace Formularios
             }
             else if(this.lstListado.SelectedItem is Reclamo)
             {
-                ActivarLabels();
+                MostrarDatosReclamo();
             }
             
+        }
+
+        private void MostrarDatosReclamo()
+        {
+            ActivarLabels();
+            lblServicios.Visible = false;
+
+            reclamo = lstListado.SelectedItem as Reclamo;
+
+            lblNombreYApellido.Text = $"Codigo: {reclamo.Codigo}";
+            lblDni.Text = $"Cliente: {reclamo.Cliente.Nombre} {reclamo.Cliente.Apellido}";
+            lblLocalidad.Text = $"Servicio reclamado: {reclamo.ServicioReclamado.Mostrar()}"; 
         }
 
         private void MostrarDatosCliente()
@@ -208,5 +248,16 @@ namespace Formularios
             this.lblNombreYApellido.Visible = true;
             this.lblServicios.Visible = true;
         }
+
+        public static void MostrarError(Exception exc)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("ERROR");
+            sb.AppendLine($"{exc.Message}");
+
+            MessageBox.Show(sb.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
     }
 }

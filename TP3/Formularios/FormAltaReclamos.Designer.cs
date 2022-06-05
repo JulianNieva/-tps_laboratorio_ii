@@ -35,6 +35,10 @@ namespace Formularios
             this.btnAgregarReclamo = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.grbxListaDeServicios = new System.Windows.Forms.GroupBox();
+            this.rbTelevision = new System.Windows.Forms.RadioButton();
+            this.rbTelefono = new System.Windows.Forms.RadioButton();
+            this.rbInternet = new System.Windows.Forms.RadioButton();
+            this.grbxListaDeServicios.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstClientes
@@ -91,12 +95,51 @@ namespace Formularios
             // grbxListaDeServicios
             // 
             this.grbxListaDeServicios.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.grbxListaDeServicios.Controls.Add(this.rbTelevision);
+            this.grbxListaDeServicios.Controls.Add(this.rbTelefono);
+            this.grbxListaDeServicios.Controls.Add(this.rbInternet);
             this.grbxListaDeServicios.Location = new System.Drawing.Point(290, 86);
             this.grbxListaDeServicios.Name = "grbxListaDeServicios";
             this.grbxListaDeServicios.Size = new System.Drawing.Size(141, 95);
             this.grbxListaDeServicios.TabIndex = 6;
             this.grbxListaDeServicios.TabStop = false;
             this.grbxListaDeServicios.Text = "Lista de servicios";
+            // 
+            // rbTelevision
+            // 
+            this.rbTelevision.AutoSize = true;
+            this.rbTelevision.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rbTelevision.Location = new System.Drawing.Point(6, 70);
+            this.rbTelevision.Name = "rbTelevision";
+            this.rbTelevision.Size = new System.Drawing.Size(76, 19);
+            this.rbTelevision.TabIndex = 2;
+            this.rbTelevision.TabStop = true;
+            this.rbTelevision.Text = "Television";
+            this.rbTelevision.UseVisualStyleBackColor = true;
+            // 
+            // rbTelefono
+            // 
+            this.rbTelefono.AutoSize = true;
+            this.rbTelefono.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rbTelefono.Location = new System.Drawing.Point(6, 45);
+            this.rbTelefono.Name = "rbTelefono";
+            this.rbTelefono.Size = new System.Drawing.Size(109, 19);
+            this.rbTelefono.TabIndex = 1;
+            this.rbTelefono.TabStop = true;
+            this.rbTelefono.Text = "Linea Telefonica";
+            this.rbTelefono.UseVisualStyleBackColor = true;
+            // 
+            // rbInternet
+            // 
+            this.rbInternet.AutoSize = true;
+            this.rbInternet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rbInternet.Location = new System.Drawing.Point(6, 22);
+            this.rbInternet.Name = "rbInternet";
+            this.rbInternet.Size = new System.Drawing.Size(66, 19);
+            this.rbInternet.TabIndex = 0;
+            this.rbInternet.TabStop = true;
+            this.rbInternet.Text = "Internet";
+            this.rbInternet.UseVisualStyleBackColor = true;
             // 
             // FormAltaReclamos
             // 
@@ -117,6 +160,8 @@ namespace Formularios
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Reclamos";
             this.Load += new System.EventHandler(this.FormAltaReclamos_Load);
+            this.grbxListaDeServicios.ResumeLayout(false);
+            this.grbxListaDeServicios.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,5 +175,8 @@ namespace Formularios
         private System.Windows.Forms.Button btnAgregarReclamo;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.GroupBox grbxListaDeServicios;
+        private System.Windows.Forms.RadioButton rbTelevision;
+        private System.Windows.Forms.RadioButton rbTelefono;
+        private System.Windows.Forms.RadioButton rbInternet;
     }
 }

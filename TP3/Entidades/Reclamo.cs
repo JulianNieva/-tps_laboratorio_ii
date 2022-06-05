@@ -18,13 +18,6 @@ namespace Entidades
             alfanumericoRnd = new Random();
         }
 
-        public Reclamo(Cliente cliente, Servicio servicioReclamado)
-        {
-            this.Codigo = GenerarCodigoAlfanumerico();
-            this.Cliente = cliente;
-            this.ServicioReclamado = servicioReclamado;
-        }
-
         public Reclamo(Cliente cliente, Servicio servicioReclamado,string codigo)
         {
             this.Codigo = codigo;
@@ -40,11 +33,6 @@ namespace Entidades
             }
             set
             {
-                if(string.IsNullOrEmpty(value))
-                {
-                    this.codigo = GenerarCodigoAlfanumerico();
-                }
-
                 this.codigo = value;
             }
 
@@ -74,7 +62,7 @@ namespace Entidades
             }
         }
 
-        private string GenerarCodigoAlfanumerico()
+        public static string GenerarCodigoAlfanumerico()
         {
             StringBuilder sb = new StringBuilder();
             int longitud = 7;
@@ -109,7 +97,18 @@ namespace Entidades
 
         public override string ToString()
         {
-            return "Reclamo";
+            return $"Cliente: {this.cliente.Nombre} {this.cliente.Apellido} - Codigo: {this.codigo} - Reclamo: {this.servicioReclamado.Mostrar()}";
+        }
+
+        public static string MostrarReclamo(Reclamo r)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Codigo: {r.codigo}");
+            sb.AppendLine($"Cliente: {r.cliente.Nombre} {r.Cliente.Apellido}");
+            sb.AppendLine($"Servicio reclamado: {r.servicioReclamado.Mostrar()}");
+
+            return sb.ToString();
         }
     }
 }

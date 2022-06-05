@@ -34,15 +34,15 @@ namespace Entidades
             }
         }
 
-        public static bool operator == (RedSignal t, Reclamo r)
+        public static bool operator == (RedSignal r, Reclamo rec)
         {
             bool retorno = false;
 
-            if(t is not null && r is not null)
+            if(r is not null && rec is not null)
             {
-                foreach (Reclamo reclamo in t.listaDeReclamos)
+                foreach (Reclamo reclamo in r.listaDeReclamos)
                 {
-                    if(reclamo == r)
+                    if(reclamo == rec)
                     {
                         retorno = true;
                         break;
@@ -53,18 +53,18 @@ namespace Entidades
             return retorno;
         }
 
-        public static bool operator !=(RedSignal t, Reclamo r)
+        public static bool operator !=(RedSignal r, Reclamo rec)
         {
-            return !(t == r);
+            return !(r == rec);
         }
 
-        public static bool operator ==(RedSignal t, Cliente c)
+        public static bool operator ==(RedSignal r, Cliente c)
         {
             bool retorno = false;
 
-            if (t is not null && c is not null)
+            if (r is not null && c is not null)
             {
-                foreach (Cliente cliente in t.listaDeClientes)
+                foreach (Cliente cliente in r.listaDeClientes)
                 {
                     if (cliente == c)
                     {
@@ -77,9 +77,9 @@ namespace Entidades
             return retorno;
         }
 
-        public static bool operator !=(RedSignal t, Cliente c)
+        public static bool operator !=(RedSignal r, Cliente c)
         {
-            return !(t == c);
+            return !(r == c);
         }
 
     }

@@ -16,9 +16,6 @@ namespace Formularios
     {
         RedSignal redSignal;
         Cliente cliente;
-        readonly Internet internet;
-        readonly Television television;
-        readonly LineaTelefonica telefono;
 
         public FormAltaCliente()
         {
@@ -29,9 +26,6 @@ namespace Formularios
             :this()
         {
             redSignal = red;
-            internet = new Internet(350);
-            television = new Television(200);
-            telefono = new LineaTelefonica(150);
         }
 
         private void FormAltaModificacionCliente_Load(object sender, EventArgs e)
@@ -79,7 +73,7 @@ namespace Formularios
             }
             catch (ClienteException exc)
             {
-                MostrarError(exc);
+                FormPrincipal.MostrarError(exc);
             } 
         }
 
@@ -161,27 +155,17 @@ namespace Formularios
                 switch (item)
                 {
                     case "Internet":
-                        this.cliente.ServiciosContratados.Add(internet);
+                        this.cliente.ServiciosContratados.Add(FormPrincipal.internet);
                         break;
                     case "Television":
-                        this.cliente.ServiciosContratados.Add(television);
+                        this.cliente.ServiciosContratados.Add(FormPrincipal.television);
                         break;
                     default:
-                        this.cliente.ServiciosContratados.Add(telefono);
+                        this.cliente.ServiciosContratados.Add(FormPrincipal.telefono);
                         break;
                 }
 
             }
-        }
-
-        private void MostrarError(Exception exc)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("ERROR");
-            sb.AppendLine($"{exc.Message}");
-
-            MessageBox.Show(sb.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
