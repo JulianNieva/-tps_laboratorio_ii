@@ -24,6 +24,10 @@ namespace Entidades
             {
                 return this.listaDeReclamos;
             }
+            set
+            {
+                this.listaDeReclamos = value;
+            }
         }
 
         public List<Cliente> ListaDeClientes
@@ -31,6 +35,10 @@ namespace Entidades
             get
             {
                 return this.listaDeClientes;
+            }
+            set
+            {
+                this.listaDeClientes = value;
             }
         }
 

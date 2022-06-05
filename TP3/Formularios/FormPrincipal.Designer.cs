@@ -39,6 +39,7 @@ namespace Formularios
             this.lblDni = new System.Windows.Forms.Label();
             this.lblLocalidad = new System.Windows.Forms.Label();
             this.lblServicios = new System.Windows.Forms.Label();
+            this.btnGuardarInformes = new System.Windows.Forms.Button();
             this.grbListado.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,12 +156,26 @@ namespace Formularios
             this.lblServicios.TabIndex = 8;
             this.lblServicios.Text = "label1";
             // 
+            // btnGuardarInformes
+            // 
+            this.btnGuardarInformes.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnGuardarInformes.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnGuardarInformes.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnGuardarInformes.Location = new System.Drawing.Point(12, 365);
+            this.btnGuardarInformes.Name = "btnGuardarInformes";
+            this.btnGuardarInformes.Size = new System.Drawing.Size(219, 64);
+            this.btnGuardarInformes.TabIndex = 2;
+            this.btnGuardarInformes.Text = "Guardar Listados";
+            this.btnGuardarInformes.UseVisualStyleBackColor = false;
+            this.btnGuardarInformes.Click += new System.EventHandler(this.btnGuardarInformes_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ClientSize = new System.Drawing.Size(900, 472);
+            this.Controls.Add(this.btnGuardarInformes);
             this.Controls.Add(this.lblServicios);
             this.Controls.Add(this.lblLocalidad);
             this.Controls.Add(this.lblDni);
@@ -193,6 +208,7 @@ namespace Formularios
         private System.Windows.Forms.Label lblDni;
         private System.Windows.Forms.Label lblLocalidad;
         private System.Windows.Forms.Label lblServicios;
+        private System.Windows.Forms.Button btnGuardarInformes;
     }
 }
 

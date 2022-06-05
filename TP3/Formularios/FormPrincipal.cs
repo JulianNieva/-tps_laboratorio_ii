@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,6 @@ namespace Formularios
         public FormPrincipal()
         {
             redSignal = new RedSignal();
-            opcionSeleccionada = true;
 
             InitializeComponent();
         }
@@ -42,6 +42,27 @@ namespace Formularios
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             //Agregar carga de archivos
+            Xml<List<Cliente>> listadoClientes = new Xml<List<Cliente>>();
+            Xml<List<Reclamo>> listadoReclamos = new Xml<List<Reclamo>>();
+
+            List<Cliente> listaDeClientesAux;
+            List<Reclamo> listaDeReclamosAux;
+            
+
+            try
+            {
+                listadoClientes.ImportarArchivo(Environment.CurrentDirectory+@"\ImportarXml\InformeInicialClientes.xml",out listaDeClientesAux);
+                listadoReclamos.ImportarArchivo(Environment.CurrentDirectory + @"\ImportarXml\InformeInicialDeReclamos.xml", out listaDeReclamosAux);
+
+                redSignal.ListaDeClientes = listaDeClientesAux;
+                redSignal.ListaDeReclamos = listaDeReclamosAux;
+            }
+            catch (Exception exc)
+            {
+                MostrarError(exc);
+            }
+
+            RefrescarLista(true);
 
             LimpiarLabels();
         }
@@ -200,7 +221,6 @@ namespace Formularios
             {
                 MostrarDatosReclamo();
             }
-            
         }
 
         private void MostrarDatosReclamo()
@@ -259,5 +279,31 @@ namespace Formularios
             MessageBox.Show(sb.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        private void btnGuardarInformes_Click(object sender, EventArgs e)
+        {
+            if(redSignal.ListaDeClientes.Count != 0 && redSignal.ListaDeReclamos.Count != 0)
+            {
+                Xml<List<Cliente>> listadoClientes = new Xml<List<Cliente>>();
+                Xml<List<Reclamo>> listadoReclamos = new Xml<List<Reclamo>>();
+
+                try
+                {
+                    if(listadoClientes.ExportarArchivo("Listado De Clientes", redSignal.ListaDeClientes) && listadoReclamos.ExportarArchivo("Listado De Reclamos", redSignal.ListaDeReclamos))
+                    {
+                        MessageBox.Show($"Se guardaron los listados con exito!\n{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}","Exito!",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MostrarError(exc);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Asegurese de tener los dos listados con un cliente/reclamo","Alerta!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+
+
+        }
     }
 }

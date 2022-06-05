@@ -42,7 +42,7 @@ namespace Formularios
                 if(lstClientes.SelectedItem is not null)
                 {
                     Reclamo reclamo;
-                    string retornoFuncion = RadiobuttonPress();
+                    string retornoFuncion = BuscarReclamoSeleccionado();
 
                     switch (retornoFuncion)
                     {
@@ -109,8 +109,6 @@ namespace Formularios
             }
         }
 
-        //private void
-
         private void DesactivarRadioButtons()
         {
             this.rbInternet.Enabled = false;
@@ -122,7 +120,7 @@ namespace Formularios
             this.rbTelevision.Checked = false;
         }
 
-        private string RadiobuttonPress()
+        private string BuscarReclamoSeleccionado()
         {
             string aux = string.Empty;
 

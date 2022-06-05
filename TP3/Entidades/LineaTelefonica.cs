@@ -8,6 +8,11 @@ namespace Entidades
 {
     public class LineaTelefonica : Servicio
     {
+        public LineaTelefonica()
+        {
+
+        }
+
         public LineaTelefonica(double precio)
             :base(precio)
         {
@@ -18,7 +23,11 @@ namespace Entidades
         {
             get
             {
-                return this.precio + this.precio * 0.10;
+                return this.precio;
+            }
+            set
+            {
+                this.precio = value * 0.10;
             }
         }
 

@@ -8,6 +8,11 @@ namespace Entidades
 {
     public class Internet : Servicio
     {
+        public Internet()
+        {
+
+        }
+
         public Internet(double precio)
             :base(precio)
         {
@@ -18,7 +23,11 @@ namespace Entidades
         {
             get
             {
-                return this.precio + this.precio * 0.45;
+                return this.precio;
+            }
+            set
+            {
+                this.precio = value * 0.45;
             }
         }
 

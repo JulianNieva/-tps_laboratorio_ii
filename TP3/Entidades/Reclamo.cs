@@ -18,6 +18,10 @@ namespace Entidades
             alfanumericoRnd = new Random();
         }
 
+        public Reclamo()
+        {
+        }
+
         public Reclamo(Cliente cliente, Servicio servicioReclamado,string codigo)
         {
             this.Codigo = codigo;

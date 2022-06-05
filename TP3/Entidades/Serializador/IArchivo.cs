@@ -8,8 +8,8 @@ namespace Entidades.Serializador
 {
     public interface IArchivo<T>
     {
-        bool ImportarArchivo(string path, T datos);
+        bool ExportarArchivo(string nombreArchivo, T datosAExportar);
+        bool ImportarArchivo(string ruta, out T datosALeer);
 
-        bool ExportarArchivo(string path, T datos);
     }
 }

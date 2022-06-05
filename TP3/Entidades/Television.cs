@@ -8,6 +8,11 @@ namespace Entidades
 {
     public class Television :Servicio
     {
+        public Television()
+        {
+
+        }
+
         public Television(double precio)
             :base(precio)
         {
@@ -18,7 +23,11 @@ namespace Entidades
         {
             get
             {
-                return this.precio + this.precio * 0.20;
+                return this.precio;
+            }
+            set
+            {
+                this.precio = value * 0.20;
             }
         }
 
