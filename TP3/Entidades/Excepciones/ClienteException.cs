@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entidades.Excepciones
 {
-    public class ClienteYaExistenteException :Exception
+    public class ClienteException :Exception
     {
-        public ClienteYaExistenteException(string mensaje)
+        public ClienteException(string mensaje)
             :base(mensaje)
         {
 

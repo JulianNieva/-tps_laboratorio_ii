@@ -82,6 +82,10 @@ namespace Entidades
             {
                 return this.listaServicios;
             }
+            set
+            {
+                this.listaServicios = value;
+            }
         }
 
         public static bool operator ==(Cliente c1, Cliente c2)
@@ -90,7 +94,7 @@ namespace Entidades
 
             if(c1 is not null && c2 is not null)
             {
-                if(c1.dni == c2.dni)//dni
+                if(c1.dni == c2.dni)
                 {
                     retorno = true;
                 }
@@ -158,13 +162,18 @@ namespace Entidades
 
         public override string ToString()
         {
+            return $"{this.nombre} {this.apellido} - DNI: {this.dni}";
+        }
+
+        public static string MostrarCliente(Cliente c)
+        {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"DNI: {this.dni}");
-            sb.AppendLine($"{this.nombre} {this.apellido}");
-            sb.AppendLine($"Localidad: {this.localidad}");
+            sb.AppendLine($"DNI: {c.dni}");
+            sb.AppendLine($"{c.nombre} {c.apellido}");
+            sb.AppendLine($"Localidad: {c.localidad}");
             sb.AppendLine($"Servicios contratados: ");
-            foreach (Servicio servicio in this.listaServicios)
+            foreach (Servicio servicio in c.listaServicios)
             {
                 sb.AppendLine(servicio.Mostrar());
             }

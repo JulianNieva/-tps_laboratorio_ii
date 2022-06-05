@@ -10,6 +10,6 @@ namespace Entidades.Serializador
     {
         bool ImportarArchivo(string path, T datos);
 
-        bool LeerArchivo(string path, T datos);
+        bool ExportarArchivo(string path, T datos);
     }
 }

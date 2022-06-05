@@ -29,7 +29,7 @@ namespace Entidades
 
         public override string Mostrar()
         {
-            return $"Internet\nPrecio: {this.Precio}";
+            return $"Internet - Precio: {this.Precio}";
         }
 
     }

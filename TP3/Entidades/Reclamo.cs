@@ -106,5 +106,10 @@ namespace Entidades
         {
             return !(r1 == r2);
         }
+
+        public override string ToString()
+        {
+            return "Reclamo";
+        }
     }
 }
