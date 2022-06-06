@@ -12,6 +12,9 @@ namespace Entidades
         private List<Cliente> listaDeClientes;
         private List<Reclamo> listaDeReclamos;
 
+        /// <summary>
+        /// Constructor por defecto
+        /// </summary>
         public RedSignal()
         {
             this.listaDeClientes = new List<Cliente>();
@@ -42,6 +45,12 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Verifico si un reclamo esta cargado en la lista
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="rec"></param>
+        /// <returns>Retorno true si esta en la lista, false caso contrario</returns>
         public static bool operator == (RedSignal r, Reclamo rec)
         {
             bool retorno = false;
@@ -66,6 +75,12 @@ namespace Entidades
             return !(r == rec);
         }
 
+        /// <summary>
+        /// Verifico si un cliente esta cargado en la lista
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="c"></param>
+        /// <returns>Retorno true si esta en la lista, false caso contrario</returns>
         public static bool operator ==(RedSignal r, Cliente c)
         {
             bool retorno = false;

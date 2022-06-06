@@ -25,6 +25,9 @@ namespace Formularios
         Reclamo reclamo;
         bool opcionSeleccionada;
 
+        /// <summary>
+        /// Constructor estatico
+        /// </summary>
         static FormPrincipal()
         {
             internet = new Internet(350);
@@ -32,27 +35,33 @@ namespace Formularios
             telefono = new LineaTelefonica(150);
         }
 
+        /// <summary>
+        /// Constructor por defecto
+        /// </summary>
         public FormPrincipal()
         {
             redSignal = new RedSignal();
-
+            opcionSeleccionada = true;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Importo los archivos hardcodeados
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            //Agregar carga de archivos
             Xml<List<Cliente>> listadoClientes = new Xml<List<Cliente>>();
             Xml<List<Reclamo>> listadoReclamos = new Xml<List<Reclamo>>();
 
             List<Cliente> listaDeClientesAux;
             List<Reclamo> listaDeReclamosAux;
             
-
             try
             {
-                listadoClientes.ImportarArchivo(Environment.CurrentDirectory+@"\ImportarXml\InformeInicialClientes.xml",out listaDeClientesAux);
-                listadoReclamos.ImportarArchivo(Environment.CurrentDirectory + @"\ImportarXml\InformeInicialDeReclamos.xml", out listaDeReclamosAux);
+                listadoClientes.ImportarArchivo(Environment.CurrentDirectory+@"\ImportarXml\InicializarClientes.xml",out listaDeClientesAux);
+                listadoReclamos.ImportarArchivo(Environment.CurrentDirectory + @"\ImportarXml\InicializarReclamos.xml", out listaDeReclamosAux);
 
                 redSignal.ListaDeClientes = listaDeClientesAux;
                 redSignal.ListaDeReclamos = listaDeReclamosAux;
@@ -62,11 +71,15 @@ namespace Formularios
                 MostrarError(exc);
             }
 
-            RefrescarLista(true);
+            RefrescarLista(opcionSeleccionada);
 
-            LimpiarLabels();
+            DesactivarLabels();
         }
 
+        /// <summary>
+        /// Refresco la lista segun la opcion
+        /// </summary>
+        /// <param name="opcion">si es true, se asignara la lista de clientes, false la lista de reclamos</param>
         public void RefrescarLista(bool opcion)
         {
             lstListado.DataSource = null;
@@ -81,27 +94,42 @@ namespace Formularios
                 
             }
             lstListado.SelectedItem = null;
-            LimpiarLabels();
+            DesactivarLabels();
         }
 
+        /// <summary>
+        /// Se muestra el listado de clientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnListarClientes_Click(object sender, EventArgs e)
         {
-            RefrescarLista(true);
+            this.opcionSeleccionada = true;
+            RefrescarLista(opcionSeleccionada);
             this.btnAgregar.Text = "Agregar Cliente";
             this.btnEliminar.Text = "Eliminar Cliente";
-            this.opcionSeleccionada = true;
-            LimpiarLabels();
+            DesactivarLabels();
         }
 
+        /// <summary>
+        /// Se muestra el lista de reclamos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnListarReclamos_Click(object sender, EventArgs e)
         {
-            RefrescarLista(false);
+            this.opcionSeleccionada = false;
+            RefrescarLista(opcionSeleccionada);
             this.btnAgregar.Text = "Agregar Reclamo";
             this.btnEliminar.Text = "Eliminar Reclamo";
-            this.opcionSeleccionada = false;
-            LimpiarLabels();
+            DesactivarLabels();
         }
 
+        /// <summary>
+        /// Cuando hace click en el boton, se agrega el objeto segun la opcion elegida
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if(opcionSeleccionada)
@@ -114,6 +142,9 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Se agrega un cliente a la lista
+        /// </summary>
         private void AgregarCliente()
         {
             FormAltaCliente alta = new FormAltaCliente(redSignal);
@@ -126,6 +157,9 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Se agrega un reclamo a la lista
+        /// </summary>
         private void AgregarReclamo()
         {
             try
@@ -153,6 +187,11 @@ namespace Formularios
            
         }
 
+        /// <summary>
+        /// Cuando hace click en el boton, se elimina el objeto segun el item de la lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             try
@@ -180,6 +219,9 @@ namespace Formularios
 
         }
 
+        /// <summary>
+        /// Se eliimina un reclamo
+        /// </summary>
         private void EliminarReclamo()
         {
             Reclamo reclamo = this.lstListado.SelectedItem as Reclamo;
@@ -191,6 +233,9 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Se elimina un cliente, y consigo, los reclamos que le correponden
+        /// </summary>
         private void EliminarCliente()
         {
             Cliente cliente = this.lstListado.SelectedItem as Cliente;
@@ -198,19 +243,33 @@ namespace Formularios
             if (MessageBox.Show($"{Cliente.MostrarCliente(cliente)}", "¿Estas seguro que desea eliminar este cliente?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 redSignal.ListaDeClientes.Remove(cliente);
-                /*foreach (Reclamo item in redSignal.ListaDeReclamos)
-                {
-                    if(cliente == item.Cliente)
-                    {
-                        redSignal.ListaDeReclamos.Remove(item);
-                    }
-                }*/
+                EliminarReclamosDeClienteEliminado(cliente);
 
                 RefrescarLista(true);
             }
             
         }
+        
+        /// <summary>
+        /// Se eliminan los reclamos del cliente recibido
+        /// </summary>
+        /// <param name="c"></param>
+        private void EliminarReclamosDeClienteEliminado(Cliente c)
+        {
+            for (int i = redSignal.ListaDeReclamos.Count-1; i >= 0; i--)
+            {
+                if(c == redSignal.ListaDeReclamos[i].Cliente)
+                {
+                    redSignal.ListaDeReclamos.RemoveAt(i);
+                }
+            }
+        }
 
+        /// <summary>
+        /// Cuando se selecciona un elemento de la lista, mostrara su datos mediante los labels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstListado_SelectedValueChanged(object sender, EventArgs e)
         {
             if(this.lstListado.SelectedItem is Cliente)
@@ -223,6 +282,9 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Muestra los datos del reclamo seleccionado
+        /// </summary>
         private void MostrarDatosReclamo()
         {
             ActivarLabels();
@@ -235,6 +297,9 @@ namespace Formularios
             lblLocalidad.Text = $"Servicio reclamado: {reclamo.ServicioReclamado.Mostrar()}"; 
         }
 
+        /// <summary>
+        /// Muestra los datos del cliente seleccionado
+        /// </summary>
         private void MostrarDatosCliente()
         {
             StringBuilder sb = new StringBuilder();
@@ -253,7 +318,10 @@ namespace Formularios
             lblServicios.Text = $"Servicios contratados: \n{sb.ToString()}";
         }
 
-        private void LimpiarLabels()
+        /// <summary>
+        /// Se desactivan los labels
+        /// </summary>
+        private void DesactivarLabels()
         {
             this.lblDni.Visible = false;
             this.lblLocalidad.Visible = false;
@@ -261,6 +329,9 @@ namespace Formularios
             this.lblServicios.Visible = false;
         }
 
+        /// <summary>
+        /// Se activan los labels
+        /// </summary>
         private void ActivarLabels()
         {
             this.lblDni.Visible = true;
@@ -269,6 +340,10 @@ namespace Formularios
             this.lblServicios.Visible = true;
         }
 
+        /// <summary>
+        /// Muestro mediante un messagebox la excepcion recibida
+        /// </summary>
+        /// <param name="exc"></param>
         public static void MostrarError(Exception exc)
         {
             StringBuilder sb = new StringBuilder();
@@ -279,6 +354,11 @@ namespace Formularios
             MessageBox.Show(sb.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        /// <summary>
+        /// Se guarda en un archivo los listados 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGuardarInformes_Click(object sender, EventArgs e)
         {
             if(redSignal.ListaDeClientes.Count != 0 && redSignal.ListaDeReclamos.Count != 0)
@@ -304,6 +384,19 @@ namespace Formularios
             }
 
 
+        }
+
+        /// <summary>
+        /// Se ceustiona al usuario si desea cerrar la aplicacion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(MessageBox.Show("¿Estas seguro que desea salir?","¡Atencion!",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

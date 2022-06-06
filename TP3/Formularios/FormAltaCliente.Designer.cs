@@ -188,7 +188,7 @@ namespace Formularios
             this.Name = "FormAltaCliente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Cliente";
-            this.Load += new System.EventHandler(this.FormAltaModificacionCliente_Load);
+            this.Load += new System.EventHandler(this.FormAltaCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

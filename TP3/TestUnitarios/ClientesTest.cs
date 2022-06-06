@@ -87,36 +87,5 @@ namespace TestUnitarios
 
             Assert.AreEqual(3, c1.ServiciosContratados.Count);
         }
-
-        [TestMethod]
-        public void Eliminar_CuandoSeDeseaEliminarUnServicioYaCargado_DebeTener1ServicioEnTotal()
-        {
-            Cliente c1 = new Cliente("Fernando", "Herejes", "44554525", ELocalidad.BuenosAires);
-            Television t = new Television(450);
-            Internet i = new Internet(650);
-
-            c1.ServiciosContratados.Add(i);
-            c1.ServiciosContratados.Add(t);
-
-            c1 -= i;
-
-            Assert.AreEqual(1, c1.ServiciosContratados.Count);
-        }
-
-        [TestMethod]
-        public void Eliminar_CuandoSeDeseaEliminarUnServicioNoExistente_DebeTener2ServiciosEnTotal()
-        {
-            Cliente c1 = new Cliente("Fernando", "Herejes", "44554525", ELocalidad.BuenosAires);
-            Television t = new Television(450);
-            Internet i = new Internet(650);
-            LineaTelefonica l = new LineaTelefonica(250);
-
-            c1.ServiciosContratados.Add(i);
-            c1.ServiciosContratados.Add(t);
-
-            c1 -= l;
-
-            Assert.AreEqual(2, c1.ServiciosContratados.Count);
-        }
     }
 }

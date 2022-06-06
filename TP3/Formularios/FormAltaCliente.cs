@@ -17,18 +17,30 @@ namespace Formularios
         RedSignal redSignal;
         Cliente cliente;
 
+        /// <summary>
+        /// Constructor por defecto
+        /// </summary>
         public FormAltaCliente()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Constructor que recibe la red
+        /// </summary>
+        /// <param name="red"></param>
         public FormAltaCliente(RedSignal red)
             :this()
         {
             redSignal = red;
         }
 
-        private void FormAltaModificacionCliente_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Se carga el combobox con los datos del enumerado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormAltaCliente_Load(object sender, EventArgs e)
         {
             foreach (var item in Enum.GetValues(typeof(ELocalidad)))
             {
@@ -37,6 +49,11 @@ namespace Formularios
             this.cmbLocalidad.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Se cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -44,6 +61,11 @@ namespace Formularios
             this.Close();
         }
 
+        /// <summary>
+        /// Se agregara un cliente siempre y cuando los datos sean validos y no exista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -77,6 +99,10 @@ namespace Formularios
             } 
         }
 
+        /// <summary>
+        /// Verifico los campos del form
+        /// </summary>
+        /// <returns></returns>
         private bool RevisarCampos()
         {
             bool retorno = false;
@@ -89,6 +115,10 @@ namespace Formularios
             return retorno;
         }
 
+        /// <summary>
+        /// Verifico el nombre ingresado
+        /// </summary>
+        /// <returns></returns>
         private bool VerficiarNombre()
         {
             bool esValido = true;
@@ -108,6 +138,10 @@ namespace Formularios
             return esValido;
         }
 
+        /// <summary>
+        /// Verifico el apellido ingresado
+        /// </summary>
+        /// <returns></returns>
         private bool VerificarApellido()
         {
             bool esValido = true;
@@ -127,6 +161,10 @@ namespace Formularios
             return esValido;
         }
 
+        /// <summary>
+        /// Verifico el DNI ingresado
+        /// </summary>
+        /// <returns></returns>
         private bool VerificarDni()
         {
             bool esValido = false;
@@ -148,6 +186,9 @@ namespace Formularios
             return esValido;
         }
 
+        /// <summary>
+        /// Reviso los servicios seleccionados y los agrego al cliente
+        /// </summary>
         private void AgregarServiciosSeleccionados()
         {
             foreach (string item in this.chlstListaDeServicios.CheckedItems)
@@ -155,13 +196,13 @@ namespace Formularios
                 switch (item)
                 {
                     case "Internet":
-                        this.cliente.ServiciosContratados.Add(FormPrincipal.internet);
+                        this.cliente += FormPrincipal.internet;
                         break;
                     case "Television":
-                        this.cliente.ServiciosContratados.Add(FormPrincipal.television);
+                        this.cliente+= FormPrincipal.television;
                         break;
                     default:
-                        this.cliente.ServiciosContratados.Add(FormPrincipal.telefono);
+                        this.cliente += FormPrincipal.telefono;
                         break;
                 }
 

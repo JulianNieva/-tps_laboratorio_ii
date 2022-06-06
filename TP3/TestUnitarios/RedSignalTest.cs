@@ -10,8 +10,8 @@ namespace TestUnitarios
     {
         RedSignal red = new RedSignal();
 
-        Reclamo r1 = new Reclamo(new Cliente("Roberto", "Hernandez", "44555666", ELocalidad.BuenosAires), new LineaTelefonica(180));
-        Reclamo r2 = new Reclamo(new Cliente("Presti", "Francis", "44555666", ELocalidad.EntreRios), new Internet(426));
+        Reclamo r1 = new Reclamo(new Cliente("Roberto", "Hernandez", "44555666", ELocalidad.BuenosAires), new LineaTelefonica(180),Reclamo.GenerarCodigoAlfanumerico());
+        Reclamo r2 = new Reclamo(new Cliente("Presti", "Francis", "44555666", ELocalidad.EntreRios), new Internet(426),Reclamo.GenerarCodigoAlfanumerico());
 
 
         [TestMethod]

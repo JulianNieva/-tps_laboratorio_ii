@@ -16,12 +16,22 @@ namespace Formularios
     {
         RedSignal red;
         Cliente cliente;
+
+        /// <summary>
+        /// Constructor que recibe la red
+        /// </summary>
+        /// <param name="red"></param>
         public FormAltaReclamos(RedSignal red)
         {
             this.red = red;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Se completa la lista con los clientes cargados en la red
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormAltaReclamos_Load(object sender, EventArgs e)
         {
             this.lstClientes.DataSource = red.ListaDeClientes;
@@ -29,12 +39,22 @@ namespace Formularios
             DesactivarRadioButtons();
         }
 
+        /// <summary>
+        /// Se cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
+        /// <summary>
+        /// Se agregara un reclamo siempre y cuando no exista en la lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAgregarReclamo_Click(object sender, EventArgs e)
         {
             try
@@ -72,7 +92,7 @@ namespace Formularios
                 }
                 else
                 {
-                    throw new ReclamoException("No se seleccione un cliente!");
+                    throw new ReclamoException("No se selecciono un cliente!");
                 }
                 
             }
@@ -82,6 +102,11 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Cuando se selecciona un cliente, se actualiza los radiobuttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstClientes_SelectedValueChanged(object sender, EventArgs e)
         {
             DesactivarRadioButtons();
@@ -109,6 +134,9 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Se desactivan los radiobuttons
+        /// </summary>
         private void DesactivarRadioButtons()
         {
             this.rbInternet.Enabled = false;
@@ -120,6 +148,10 @@ namespace Formularios
             this.rbTelevision.Checked = false;
         }
 
+        /// <summary>
+        /// Reviso cual fue el servicio seleccionado de los radiobuttons
+        /// </summary>
+        /// <returns>Retorna el nombre del control del radiobutton</returns>
         private string BuscarReclamoSeleccionado()
         {
             string aux = string.Empty;

@@ -108,7 +108,7 @@ namespace Formularios
             this.btnEliminar.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnEliminar.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnEliminar.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnEliminar.Location = new System.Drawing.Point(715, 121);
+            this.btnEliminar.Location = new System.Drawing.Point(715, 132);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(175, 76);
             this.btnEliminar.TabIndex = 4;
@@ -122,9 +122,9 @@ namespace Formularios
             this.lblNombreYApellido.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.lblNombreYApellido.Location = new System.Drawing.Point(250, 340);
             this.lblNombreYApellido.Name = "lblNombreYApellido";
-            this.lblNombreYApellido.Size = new System.Drawing.Size(47, 17);
+            this.lblNombreYApellido.Size = new System.Drawing.Size(42, 17);
             this.lblNombreYApellido.TabIndex = 5;
-            this.lblNombreYApellido.Text = "label1";
+            this.lblNombreYApellido.Text = "datos";
             // 
             // lblDni
             // 
@@ -132,9 +132,9 @@ namespace Formularios
             this.lblDni.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.lblDni.Location = new System.Drawing.Point(250, 412);
             this.lblDni.Name = "lblDni";
-            this.lblDni.Size = new System.Drawing.Size(47, 17);
+            this.lblDni.Size = new System.Drawing.Size(42, 17);
             this.lblDni.TabIndex = 6;
-            this.lblDni.Text = "label1";
+            this.lblDni.Text = "datos";
             // 
             // lblLocalidad
             // 
@@ -142,9 +142,9 @@ namespace Formularios
             this.lblLocalidad.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.lblLocalidad.Location = new System.Drawing.Point(480, 340);
             this.lblLocalidad.Name = "lblLocalidad";
-            this.lblLocalidad.Size = new System.Drawing.Size(47, 17);
+            this.lblLocalidad.Size = new System.Drawing.Size(42, 17);
             this.lblLocalidad.TabIndex = 7;
-            this.lblLocalidad.Text = "label1";
+            this.lblLocalidad.Text = "datos";
             // 
             // lblServicios
             // 
@@ -152,9 +152,9 @@ namespace Formularios
             this.lblServicios.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.lblServicios.Location = new System.Drawing.Point(480, 384);
             this.lblServicios.Name = "lblServicios";
-            this.lblServicios.Size = new System.Drawing.Size(47, 17);
+            this.lblServicios.Size = new System.Drawing.Size(42, 17);
             this.lblServicios.TabIndex = 8;
-            this.lblServicios.Text = "label1";
+            this.lblServicios.Text = "datos";
             // 
             // btnGuardarInformes
             // 
@@ -189,6 +189,7 @@ namespace Formularios
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RedSignal";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.grbListado.ResumeLayout(false);
             this.ResumeLayout(false);
