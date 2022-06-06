@@ -226,7 +226,7 @@ namespace Formularios
         {
             Reclamo reclamo = this.lstListado.SelectedItem as Reclamo;
 
-            if (MessageBox.Show($"{Reclamo.MostrarReclamo(reclamo)}","¿Se respondio este reclamo?",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
+            if (MessageBox.Show($"{Reclamo.MostrarReclamo(reclamo)}","¿Se soluciono este reclamo?",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
             {
                 redSignal.ListaDeReclamos.Remove(reclamo);
                 RefrescarLista(false);
