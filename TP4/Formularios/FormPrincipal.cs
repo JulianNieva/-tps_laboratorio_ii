@@ -16,6 +16,8 @@ namespace Formularios
 {
     public partial class FormPrincipal : Form
     {
+        public delegate void ExportarInformacion();
+        ExportarInformacion exportarInformacion;
 
         public static Internet internet;
         public static LineaTelefonica telefono;
@@ -51,6 +53,10 @@ namespace Formularios
         /// <param name="e"></param>
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            Horario hora = new Horario();
+            hora.cambioDeSegundo += AsignarHorario;
+            hora.InicializarHorario();
+
             try
             {
                 RefrescarLista(opcionSeleccionada);
@@ -61,6 +67,8 @@ namespace Formularios
             }
 
             DesactivarLabel();
+
+            exportarInformacion = Exportar;
         }
 
         /// <summary>
@@ -81,6 +89,7 @@ namespace Formularios
             {
                 dtgListado.DataSource = redSignal.ListaDeReclamos;    
             }
+
             dtgListado.Refresh();
             dtgListado.Update();
             dtgListado.ClearSelection();
@@ -142,11 +151,19 @@ namespace Formularios
 
             alta.ShowDialog();
 
-            if (alta.DialogResult == DialogResult.OK)
+            try
             {
-                ClienteDAO.GuardarCliente(alta.Cliente);
-                RefrescarLista(true);
+                if (alta.DialogResult == DialogResult.OK)
+                {
+                    ClienteDAO.GuardarCliente(alta.Cliente);
+                    RefrescarLista(true);
+                }
             }
+            catch (BaseDeDatosException exc)
+            {
+                MostrarError(exc);
+            }
+
         }
 
         /// <summary>
@@ -174,6 +191,10 @@ namespace Formularios
                 }
             }
             catch (ReclamoException exc)
+            {
+                MostrarError(exc);
+            }
+            catch(BaseDeDatosException exc)
             {
                 MostrarError(exc);
             }
@@ -218,12 +239,18 @@ namespace Formularios
         private void EliminarReclamo()
         {
             Reclamo reclamo = this.dtgListado.CurrentRow.DataBoundItem as Reclamo;
-
-            if (MessageBox.Show($"{Reclamo.MostrarReclamo(reclamo)}","¿Se soluciono este reclamo?",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
+            try
             {
-                ReclamoDAO.EliminarReclamo(reclamo.Codigo);
-                RefrescarLista(false);
+                if (MessageBox.Show($"{Reclamo.MostrarReclamo(reclamo)}", "¿Se soluciono este reclamo?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    ReclamoDAO.EliminarReclamo(reclamo.Codigo);
+                    RefrescarLista(false);
+                }
             }
+            catch (BaseDeDatosException exc)
+            {
+                MostrarError(exc);
+            }       
         }
 
         /// <summary>
@@ -265,11 +292,34 @@ namespace Formularios
         }
 
         /// <summary>
+        /// Se eliminan los reclamos del cliente que fue modificado siempre y cuando no tenga dicho servicio
+        /// </summary>
+        /// <param name="c"></param>
+        private void EliminarReclamosDeClienteModificado(Cliente c)
+        {
+            for (int i = redSignal.ListaDeReclamos.Count -1; i >= 0 ; i--)
+            {
+                if(c == redSignal.ListaDeReclamos[i].Cliente && !c.ServiciosContratados.Contains(redSignal.ListaDeReclamos[i].ServicioReclamado))
+                {
+                    ReclamoDAO.EliminarReclamo(redSignal.ListaDeReclamos[i].Codigo);
+                }
+            }
+        }
+
+        /// <summary>
         /// Se desactivan los labels
         /// </summary>
         private void DesactivarLabel()
         {
             this.lblServicios.Visible = false;
+        }
+
+        /// <summary>
+        /// Se activa el label
+        /// </summary>
+        private void ActivarLabel()
+        {
+            this.lblServicios.Visible = true;
         }
 
         /// <summary>
@@ -293,45 +343,9 @@ namespace Formularios
         /// <param name="e"></param>
         private void btnGuardarInformes_Click(object sender, EventArgs e)
         {
-            bool seExporto = false;
-
             if(redSignal.ListaDeClientes.Count != 0 && redSignal.ListaDeReclamos.Count != 0)
             {
-                try
-                {
-
-                    switch (cmbTipoArchivo.Text)
-                    {
-                        case "TXT":
-                            Txt<List<Cliente>> clientesTxt = new Txt<List<Cliente>>();
-                            Txt<List<Reclamo>> reclamosTxt = new Txt<List<Reclamo>>();
-
-                            clientesTxt.ExportarArchivo("Listado de Clientes",redSignal.ListaDeClientes);
-                            reclamosTxt.ExportarArchivo("Listado de Reclamos", redSignal.ListaDeReclamos);
-                            seExporto = true;
-                            break;
-                        case "XML":
-                            Xml<List<Cliente>> clientesXml = new Xml<List<Cliente>>();
-                            Xml<List<Reclamo>> reclamosXml = new Xml<List<Reclamo>>();
-
-                            clientesXml.ExportarArchivo("Listado de Clientes", redSignal.ListaDeClientes);
-                            reclamosXml.ExportarArchivo("Listado de Reclamos", redSignal.ListaDeReclamos);
-                            seExporto = true;
-                            break;
-                        default:
-                            MessageBox.Show("Asegurese de seleccionar alguna opcion deseada!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                    }
-
-                    if(seExporto)
-                    {
-                        MessageBox.Show($"Se exporto el archivo con exito!{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}", "Atencion!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                catch (ArchivosException ex)
-                {
-                    MostrarError(ex);
-                } 
+                exportarInformacion.Invoke();
             }
             else
             {
@@ -341,7 +355,7 @@ namespace Formularios
         }
 
         /// <summary>
-        /// Se ceustiona al usuario si desea cerrar la aplicacion
+        /// Se cuestiona al usuario si desea cerrar la aplicacion
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -353,6 +367,11 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Se modifica un cliente y consigo, se eliminan los reclamos de los servicios que ya tenga
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModificarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -366,7 +385,9 @@ namespace Formularios
                     modificacion.ShowDialog();
                     if(modificacion.DialogResult == DialogResult.OK)
                     {
+                        EliminarReclamosDeClienteModificado(modificacion.Cliente);
                         ClienteDAO.ModificarCliente(modificacion.Cliente);
+                        RefrescarLista(true);
                     }
                 }
                 else
@@ -380,12 +401,104 @@ namespace Formularios
             }
         }
 
-        /*private void EliminarReclamosDeClienteModificado(Cliente c)
+        /// <summary>
+        /// Se exporta los datos segun el tipo seleccionado
+        /// </summary>
+        private void Exportar()
         {
-            foreach (Reclamo item in redSignal.ListaDeReclamos)
+            try
             {
+                bool seExporto = false;
 
+                switch (cmbTipoArchivo.Text)
+                {
+                    case "TXT":
+                        redSignal.ListaDeClientes.ExportarClientesTxt(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InformesRedSignal\", "Listado de Clientes");
+                        redSignal.ListaDeReclamos.ExportarReclamosTxt(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InformesRedSignal\", "Listado de Reclamos");
+                        seExporto = true;
+                        break;
+                    case "XML":
+                        Xml<List<Cliente>> clientesXml = new Xml<List<Cliente>>();
+                        Xml<List<Reclamo>> reclamosXml = new Xml<List<Reclamo>>();
+
+                        clientesXml.ExportarArchivo("Listado de Clientes", redSignal.ListaDeClientes);
+                        reclamosXml.ExportarArchivo("Listado de Reclamos", redSignal.ListaDeReclamos);
+                        seExporto = true;
+                        break;
+                    default:
+                        MessageBox.Show("Asegurese de seleccionar alguna opcion deseada!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+
+                if (seExporto)
+                {
+                    MessageBox.Show($"Se exporto el archivo con exito!\n{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}", "Atencion!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-        }*/
+            catch (ArchivosException ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Se le asigna la hora al reloj
+        /// </summary>
+        /// <param name="h"></param>
+        private void AsignarHorario(Horario h)
+        {
+            if(this.lblTiempo.InvokeRequired)
+            {
+                Action<Horario> delegadoAccion = AsignarHorario;
+
+                this.lblTiempo.Invoke(delegadoAccion,h);
+            }
+            else
+            {
+                this.lblTiempo.Text = h.ToString();
+            }
+        }
+
+        private void dtgListado_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgListado.SelectedRows.Count > 0)
+            {
+                if (dtgListado.CurrentRow.DataBoundItem is Cliente)
+                {
+                    ActivarLabel();
+
+                    Cliente cAux = dtgListado.CurrentRow.DataBoundItem as Cliente;
+
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.AppendLine("Servivicio contratados : ");
+
+                    foreach (Servicio item in cAux.ServiciosContratados)
+                    {
+                        sb.AppendLine($"* {item.Mostrar()}");
+                    }
+
+                    lblServicios.Text = sb.ToString();
+
+                }
+                else if (dtgListado.CurrentRow.DataBoundItem is Reclamo)
+                {
+                    ActivarLabel();
+
+                    Reclamo rAux = dtgListado.CurrentRow.DataBoundItem as Reclamo;
+
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.AppendLine("Servivicio contratados : ");
+
+                    foreach (Servicio item in rAux.Cliente.ServiciosContratados)
+                    {
+                        sb.AppendLine($"* {item.Mostrar()}");
+                    }
+
+                    lblServicios.Text = sb.ToString();
+                }
+            }
+        }
     }
 }

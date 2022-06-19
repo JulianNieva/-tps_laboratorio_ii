@@ -146,7 +146,7 @@ namespace Entidades
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Codigo: {r.codigo}");
-            sb.AppendLine($"Cliente: {r.cliente.Nombre} {r.Cliente.Apellido}");
+            sb.AppendLine($"Cliente: {Cliente.MostrarCliente(r.cliente)}");
             sb.AppendLine($"Servicio reclamado: {r.servicioReclamado.Mostrar()}");
 
             return sb.ToString();

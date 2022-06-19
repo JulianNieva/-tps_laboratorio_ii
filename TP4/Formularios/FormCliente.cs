@@ -29,6 +29,14 @@ namespace Formularios
         public FormCliente(RedSignal red,string titulo, string boton,string nombre, string apellido,string dni,ELocalidad localidad,List<Servicio> servicios)
             :this(red)
         {
+            Task cargarDatos = Task.Run(() => {
+                IniciarModificacion(titulo, boton, nombre, apellido, dni, localidad, servicios);
+                Task.Delay(500);
+            });
+        }
+
+        private void IniciarModificacion(string titulo,string boton,string nombre, string apellido, string dni, ELocalidad localidad,List<Servicio> servicios)
+        {
             this.Text = titulo;
             this.btnAgregar.Text = boton;
             this.txtNombre.Text = nombre;
@@ -41,7 +49,7 @@ namespace Formularios
                 switch (item.ToString())
                 {
                     case "Television":
-                        this.chlstListaDeServicios.SetItemChecked(2,true);
+                        this.chlstListaDeServicios.SetItemChecked(2, true);
                         break;
                     case "Internet":
                         this.chlstListaDeServicios.SetItemChecked(0, true);

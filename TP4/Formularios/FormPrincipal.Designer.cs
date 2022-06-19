@@ -29,6 +29,7 @@ namespace Formularios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             this.grbListado = new System.Windows.Forms.GroupBox();
             this.btnListarReclamos = new System.Windows.Forms.Button();
             this.btnListarClientes = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@ namespace Formularios
             this.cmbTipoArchivo = new System.Windows.Forms.ComboBox();
             this.dtgListado = new System.Windows.Forms.DataGridView();
             this.btnModificarCliente = new System.Windows.Forms.Button();
+            this.lblTiempo = new System.Windows.Forms.Label();
             this.grbListado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgListado)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +53,7 @@ namespace Formularios
             this.grbListado.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.grbListado.Location = new System.Drawing.Point(12, 27);
             this.grbListado.Name = "grbListado";
-            this.grbListado.Size = new System.Drawing.Size(232, 202);
+            this.grbListado.Size = new System.Drawing.Size(184, 157);
             this.grbListado.TabIndex = 1;
             this.grbListado.TabStop = false;
             this.grbListado.Text = "Listar: ";
@@ -59,10 +61,10 @@ namespace Formularios
             // btnListarReclamos
             // 
             this.btnListarReclamos.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.btnListarReclamos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnListarReclamos.Location = new System.Drawing.Point(7, 117);
+            this.btnListarReclamos.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnListarReclamos.Location = new System.Drawing.Point(6, 99);
             this.btnListarReclamos.Name = "btnListarReclamos";
-            this.btnListarReclamos.Size = new System.Drawing.Size(219, 64);
+            this.btnListarReclamos.Size = new System.Drawing.Size(163, 40);
             this.btnListarReclamos.TabIndex = 1;
             this.btnListarReclamos.Text = "Reclamos";
             this.btnListarReclamos.UseVisualStyleBackColor = false;
@@ -71,10 +73,10 @@ namespace Formularios
             // btnListarClientes
             // 
             this.btnListarClientes.BackColor = System.Drawing.Color.SlateBlue;
-            this.btnListarClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnListarClientes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnListarClientes.Location = new System.Drawing.Point(7, 23);
             this.btnListarClientes.Name = "btnListarClientes";
-            this.btnListarClientes.Size = new System.Drawing.Size(219, 64);
+            this.btnListarClientes.Size = new System.Drawing.Size(163, 38);
             this.btnListarClientes.TabIndex = 0;
             this.btnListarClientes.Text = "Clientes";
             this.btnListarClientes.UseVisualStyleBackColor = false;
@@ -113,10 +115,13 @@ namespace Formularios
             // lblServicios
             // 
             this.lblServicios.AutoSize = true;
-            this.lblServicios.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.lblServicios.Location = new System.Drawing.Point(601, 351);
+            this.lblServicios.BackColor = System.Drawing.Color.SteelBlue;
+            this.lblServicios.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblServicios.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.lblServicios.ForeColor = System.Drawing.Color.Cyan;
+            this.lblServicios.Location = new System.Drawing.Point(276, 305);
             this.lblServicios.Name = "lblServicios";
-            this.lblServicios.Size = new System.Drawing.Size(42, 17);
+            this.lblServicios.Size = new System.Drawing.Size(59, 25);
             this.lblServicios.TabIndex = 8;
             this.lblServicios.Text = "datos";
             // 
@@ -126,7 +131,7 @@ namespace Formularios
             this.btnGuardarInformes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnGuardarInformes.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnGuardarInformes.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnGuardarInformes.Location = new System.Drawing.Point(12, 365);
+            this.btnGuardarInformes.Location = new System.Drawing.Point(12, 332);
             this.btnGuardarInformes.Name = "btnGuardarInformes";
             this.btnGuardarInformes.Size = new System.Drawing.Size(219, 64);
             this.btnGuardarInformes.TabIndex = 2;
@@ -144,9 +149,8 @@ namespace Formularios
             this.cmbTipoArchivo.Items.AddRange(new object[] {
             "",
             "XML",
-            "TXT",
-            "JSON"});
-            this.cmbTipoArchivo.Location = new System.Drawing.Point(12, 330);
+            "TXT"});
+            this.cmbTipoArchivo.Location = new System.Drawing.Point(12, 297);
             this.cmbTipoArchivo.Name = "cmbTipoArchivo";
             this.cmbTipoArchivo.Size = new System.Drawing.Size(121, 29);
             this.cmbTipoArchivo.TabIndex = 9;
@@ -166,7 +170,7 @@ namespace Formularios
             this.dtgListado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgListado.GridColor = System.Drawing.SystemColors.InactiveCaption;
-            this.dtgListado.Location = new System.Drawing.Point(265, 27);
+            this.dtgListado.Location = new System.Drawing.Point(202, 12);
             this.dtgListado.MultiSelect = false;
             this.dtgListado.Name = "dtgListado";
             this.dtgListado.ReadOnly = true;
@@ -177,8 +181,9 @@ namespace Formularios
             this.dtgListado.ShowCellErrors = false;
             this.dtgListado.ShowCellToolTips = false;
             this.dtgListado.ShowEditingIcon = false;
-            this.dtgListado.Size = new System.Drawing.Size(414, 293);
+            this.dtgListado.Size = new System.Drawing.Size(487, 290);
             this.dtgListado.TabIndex = 10;
+            this.dtgListado.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgListado_CellClick);
             // 
             // btnModificarCliente
             // 
@@ -195,12 +200,23 @@ namespace Formularios
             this.btnModificarCliente.UseVisualStyleBackColor = false;
             this.btnModificarCliente.Click += new System.EventHandler(this.btnModificarCliente_Click);
             // 
+            // lblTiempo
+            // 
+            this.lblTiempo.AutoSize = true;
+            this.lblTiempo.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTiempo.Location = new System.Drawing.Point(653, 311);
+            this.lblTiempo.Name = "lblTiempo";
+            this.lblTiempo.Size = new System.Drawing.Size(63, 19);
+            this.lblTiempo.TabIndex = 12;
+            this.lblTiempo.Text = "Tiempo";
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(892, 472);
+            this.ClientSize = new System.Drawing.Size(892, 422);
+            this.Controls.Add(this.lblTiempo);
             this.Controls.Add(this.btnModificarCliente);
             this.Controls.Add(this.dtgListado);
             this.Controls.Add(this.cmbTipoArchivo);
@@ -210,6 +226,7 @@ namespace Formularios
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.grbListado);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -234,6 +251,7 @@ namespace Formularios
         private System.Windows.Forms.ComboBox cmbTipoArchivo;
         private System.Windows.Forms.DataGridView dtgListado;
         private System.Windows.Forms.Button btnModificarCliente;
+        private System.Windows.Forms.Label lblTiempo;
     }
 }
 

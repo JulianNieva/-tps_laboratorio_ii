@@ -29,6 +29,7 @@ namespace Formularios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReclamos));
             this.lstClientes = new System.Windows.Forms.ListBox();
             this.lblSeleccionClientes = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -141,7 +142,7 @@ namespace Formularios
             this.rbInternet.Text = "Internet";
             this.rbInternet.UseVisualStyleBackColor = true;
             // 
-            // FormAltaReclamos
+            // FormReclamos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -154,9 +155,10 @@ namespace Formularios
             this.Controls.Add(this.lblSeleccionClientes);
             this.Controls.Add(this.lstClientes);
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormAltaReclamos";
+            this.Name = "FormReclamos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Reclamos";
             this.Load += new System.EventHandler(this.FormAltaReclamos_Load);

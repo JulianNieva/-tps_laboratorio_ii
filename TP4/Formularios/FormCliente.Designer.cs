@@ -29,6 +29,7 @@ namespace Formularios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCliente));
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.txtDni = new System.Windows.Forms.TextBox();
@@ -164,7 +165,7 @@ namespace Formularios
             this.chlstListaDeServicios.Size = new System.Drawing.Size(193, 144);
             this.chlstListaDeServicios.TabIndex = 13;
             // 
-            // FormAltaCliente
+            // FormCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -183,9 +184,10 @@ namespace Formularios
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.txtNombre);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormAltaCliente";
+            this.Name = "FormCliente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Cliente";
             this.Load += new System.EventHandler(this.FormAltaCliente_Load);
