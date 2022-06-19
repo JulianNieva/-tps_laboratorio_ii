@@ -29,10 +29,7 @@ namespace Formularios
         public FormCliente(RedSignal red,string titulo, string boton,string nombre, string apellido,string dni,ELocalidad localidad,List<Servicio> servicios)
             :this(red)
         {
-            Task cargarDatos = Task.Run(() => {
-                IniciarModificacion(titulo, boton, nombre, apellido, dni, localidad, servicios);
-                Task.Delay(500);
-            });
+            IniciarModificacion(titulo,boton,nombre,apellido,dni,localidad,servicios);
         }
 
         private void IniciarModificacion(string titulo,string boton,string nombre, string apellido, string dni, ELocalidad localidad,List<Servicio> servicios)

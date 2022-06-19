@@ -133,7 +133,7 @@ namespace Entidades
         /// <returns></returns>
         public override string ToString()
         {
-            return $"Cliente: {this.cliente.Nombre} {this.cliente.Apellido} - Codigo: {this.codigo} - Reclamo: {this.servicioReclamado.Mostrar()}";
+            return $"Cliente: {this.cliente.Nombre} - {this.cliente.Apellido} - Codigo: {this.codigo} - Reclamo: {this.servicioReclamado.Mostrar()}";
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Entidades
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Codigo: {r.codigo}");
-            sb.AppendLine($"Cliente: {Cliente.MostrarCliente(r.cliente)}");
+            sb.Append($"Cliente: {Cliente.MostrarCliente(r.cliente)}");
             sb.AppendLine($"Servicio reclamado: {r.servicioReclamado.Mostrar()}");
 
             return sb.ToString();

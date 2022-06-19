@@ -17,7 +17,7 @@ namespace Entidades
 
         public void InicializarHorario()
         {
-            Task.Run(() =>
+           Task.Run(() =>
            {
                while (true)
                {
@@ -40,7 +40,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return $"Hora  Minutos  Segundos\n{hora} - {minuto} - {segundo}";
+            return $"Hora Minutos Segundos\n{hora,-5}:  {minuto}  : {segundo,2}";
         }
 
     }

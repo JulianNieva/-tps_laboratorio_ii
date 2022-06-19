@@ -203,10 +203,12 @@ namespace Formularios
             // lblTiempo
             // 
             this.lblTiempo.AutoSize = true;
+            this.lblTiempo.BackColor = System.Drawing.Color.RoyalBlue;
+            this.lblTiempo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTiempo.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTiempo.Location = new System.Drawing.Point(653, 311);
+            this.lblTiempo.Location = new System.Drawing.Point(651, 375);
             this.lblTiempo.Name = "lblTiempo";
-            this.lblTiempo.Size = new System.Drawing.Size(63, 19);
+            this.lblTiempo.Size = new System.Drawing.Size(65, 21);
             this.lblTiempo.TabIndex = 12;
             this.lblTiempo.Text = "Tiempo";
             // 
