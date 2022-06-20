@@ -15,6 +15,10 @@ namespace Entidades
         public delegate void MostrarHorario(Horario hora);
         public event MostrarHorario cambioDeSegundo;
 
+        /// <summary>
+        /// Se inicia un hilo secundario, en donde cada vez que el segundo cambie
+        /// se lanza el evento cambioDeSegundo
+        /// </summary>
         public void InicializarHorario()
         {
            Task.Run(() =>
@@ -38,6 +42,10 @@ namespace Entidades
            });
         }
 
+        /// <summary>
+        /// Devuelvo la hora exacta
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"Hora Minutos Segundos\n{hora,-5}:  {minuto}  : {segundo,2}";

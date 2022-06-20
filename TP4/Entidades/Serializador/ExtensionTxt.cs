@@ -11,6 +11,13 @@ namespace Entidades
 {
     public static class ExtensionTxt
     {
+     
+        /// <summary>
+        /// Exporto el listado de clientes en formato txt
+        /// </summary>
+        /// <param name="listadoClientes"></param>
+        /// <param name="path"></param>
+        /// <param name="nombre"></param>
         public static void ExportarClientesTxt(this List<Cliente> listadoClientes,string path,string nombre)
         {
             string pathAuxiliar = path + @"\InformesTxt\";
@@ -44,6 +51,12 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Exporto el lista de reclamos en formato txt
+        /// </summary>
+        /// <param name="listadoDeReclamos"></param>
+        /// <param name="path"></param>
+        /// <param name="nombre"></param>
         public static void ExportarReclamosTxt(this List<Reclamo> listadoDeReclamos,string path, string nombre)
         {
             string pathAuxiliar = path + @"\InformesTxt\";

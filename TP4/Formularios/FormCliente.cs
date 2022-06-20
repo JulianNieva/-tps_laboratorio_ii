@@ -32,6 +32,16 @@ namespace Formularios
             IniciarModificacion(titulo,boton,nombre,apellido,dni,localidad,servicios);
         }
 
+        /// <summary>
+        /// Se inicializa la configuracion necesaria para poder modificar un cliente
+        /// </summary>
+        /// <param name="titulo"></param>
+        /// <param name="boton"></param>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="dni"></param>
+        /// <param name="localidad"></param>
+        /// <param name="servicios"></param>
         private void IniciarModificacion(string titulo,string boton,string nombre, string apellido, string dni, ELocalidad localidad,List<Servicio> servicios)
         {
             this.Text = titulo;
@@ -58,6 +68,9 @@ namespace Formularios
             }
         }
 
+        /// <summary>
+        /// Propiedad que retorna el cliente que fue instanciado 
+        /// </summary>
         public Cliente Cliente
         {
             get
@@ -138,7 +151,7 @@ namespace Formularios
                 throw new ClienteException("Ya se encuentra cargado este cliente!");
             }
         }
-         
+        
         private void ModificarCliente()
         {
             this.cliente = new Cliente(this.txtNombre.Text, this.txtApellido.Text, this.txtDni.Text, (ELocalidad)this.cmbLocalidad.SelectedItem);

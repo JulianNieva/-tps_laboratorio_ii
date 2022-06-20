@@ -14,6 +14,9 @@ namespace Entidades
         static SqlCommand comando;
         static SqlConnection conexion;
 
+        /// <summary>
+        /// Constructor estatico
+        /// </summary>
         static ClienteDAO()
         {
             cadenaConexion = @"Data Source=.; Database = RedSignal; Trusted_Connection = True";
@@ -23,6 +26,10 @@ namespace Entidades
             comando.CommandType = System.Data.CommandType.Text;
         }
 
+        /// <summary>
+        /// Se modifica un cliente en la base de datos
+        /// </summary>
+        /// <param name="c">Cliente a modificar</param>
         public static void ModificarCliente(Cliente c)
         {
             bool tieneInternet = c.ServiciosContratados.Contains(new Internet());
@@ -59,6 +66,10 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Trae todo los clientes de la base de datos
+        /// </summary>
+        /// <returns></returns>
         public static List<Cliente> LeerClientes()
         {
             List<Cliente> clientes = new List<Cliente>();
@@ -103,6 +114,11 @@ namespace Entidades
             return clientes;
         }
 
+        /// <summary>
+        /// Traigo un cliente segun el dni recibido
+        /// </summary>
+        /// <param name="dni"></param>
+        /// <returns></returns>
         public static Cliente LeerClientePorDni(string dni)
         {
             Cliente clienteAux = null;
@@ -147,6 +163,10 @@ namespace Entidades
             return clienteAux;
         }
 
+        /// <summary>
+        /// Guardo un cliente en la base de datos
+        /// </summary>
+        /// <param name="c"></param>
         public static void GuardarCliente(Cliente c)
         {
             bool tieneInternet = c.ServiciosContratados.Contains(new Internet());
@@ -183,6 +203,11 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Elimino un cliente de la base de datos
+        /// </summary>
+        /// <param name="dni"></param>
+        /// <returns></returns>
         public static bool BorrarCliente(string dni)
         {
             bool retorno = false;

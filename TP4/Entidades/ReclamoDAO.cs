@@ -14,6 +14,9 @@ namespace Entidades
         static SqlCommand comando;
         static SqlConnection conexion;
 
+        /// <summary>
+        /// Constructor estatico
+        /// </summary>
         static ReclamoDAO()
         {
             cadenaConexion = @"Data Source=.; Database = RedSignal; Trusted_Connection = True";
@@ -23,6 +26,10 @@ namespace Entidades
             comando.CommandType = System.Data.CommandType.Text;
         }
 
+        /// <summary>
+        /// Se guarda un reclamo en la base de datos
+        /// </summary>
+        /// <param name="r">Reclamo a guardar</param>
         public static void GuardarReclamo(Reclamo r)
         {
             try
@@ -49,6 +56,10 @@ namespace Entidades
             }
         }
 
+        /// <summary>
+        /// Trae todos los reclamos de la base de datos
+        /// </summary>
+        /// <returns></returns>
         public static List<Reclamo> LeerReclamos()
         {
             List<Reclamo> reclamos = new List<Reclamo>();
@@ -97,6 +108,11 @@ namespace Entidades
             return reclamos;
         }
 
+        /// <summary>
+        /// Eliminar un reclamo de la base de datos
+        /// </summary>
+        /// <param name="codigo">Codigo a buscar en la base para eliminar el reclamo</param>
+        /// <returns></returns>
         public static bool EliminarReclamo(string codigo)
         {
             bool retorno = false;
