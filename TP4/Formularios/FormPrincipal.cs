@@ -66,8 +66,6 @@ namespace Formularios
                 MostrarError(exc);
             }
 
-            DesactivarLabel();
-
             exportarInformacion = Exportar;
         }
 
@@ -93,6 +91,7 @@ namespace Formularios
             dtgListado.Refresh();
             dtgListado.Update();
             dtgListado.ClearSelection();
+            DesactivarLabel();
         }
 
         /// <summary>
